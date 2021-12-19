@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+{% load filename %}
+
+{% if files %}
+
+    <h2>Uploaded Files</h2>
+    {% comment %} {% block content_header %}
+        <p>
+        <a href="{% url 'upload_file' %}" class="btn btn-primary">Upload file</a>
+        </p>
+    {% endblock %} {% endcomment %}
+
+    <table class="table mb-0">
+        <thead>
+        <tr>
+            <th>Agent Name</th>
+            <th>Recovery File</th>
+            <th>Download</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for file in files %}
+            <tr>
+            <td>{{ file.agent_name }}</td>
+            <td>{{ file.recovery_file|filename }}</td>
+            <td>
+                <a href="{{ file.recovery_file.url }}" class="btn btn-success btn-sm" target="_blank">
+                Download File
+                </a>
+            </td>
+            <td>
+                <form method="post" action="{% url 'core:delete_file' file.pk %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </td>
+            
+            </tr>
+        {% endfor %}
+        <p>
+            <a href="{% url 'core:upload' %}" class="btn btn-primary">Upload file</a>
+        </p>
+        </tbody>
+    </table>
+    {% else %}
+        <h3>No Files here to show. Please Upload files</h3>
+        <p>
+            <a href="{% url 'core:upload' %}" class="btn btn-primary">Upload file</a>
+        </p>
+    {% endif %}
+{% endblock %}

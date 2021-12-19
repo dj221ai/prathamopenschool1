@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block accounts %}
+<link rel="stylesheet" href="{% static '/css/register.css'%}">
+    <div class="login-box">
+        <form method="post">
+          {% csrf_token %}
+          
+        <h1 class="h3 mb-1 font-weight-normal">Register</h1>
+        <input type="email" name="email" id="inputemail" class="form-control" placeholder="Enter Email" required autofocus>
+        <input type="text" name="name" id="inputName" class="form-control" placeholder="Enter Your Name" required>
+        <input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="Password" required>
+        <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm Password" required>
+          {% for field in form %}
+              {% for error in field.errors %}
+                      <p style="color: blue;">{{ error }}</p>
+              {% endfor %}
+          {% endfor %}
+          {% if form.non_field_errors %}
+          <div style="color:rgb(31, 14, 180);">
+              <p>{{ form.non_field_errors }}</p>
+          </div>
+          {% endif %}
+        <button class="btn btn-success col-12 text-center rounded" type="submit" name="submit" value="Sign in">Sign Up</button>
+
+      </form>
+      <p class="reg" style="color:rgb(232, 232, 243);">
+        Already have an account? &nbsp;
+        <a href="{% url 'account:login' %}" style="text-decoration: none;">
+          <span class="reg1" style="color:rgb(22, 184, 76);">Login</span>
+        </a>
+      </p>
+    </div>
+
+    
+{% endblock %}
