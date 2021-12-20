@@ -1,0 +1,1 @@
+web: gunicorn unicons.wsgi --log-file -
