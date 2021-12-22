@@ -5,7 +5,7 @@ __pycache__
 *.pyc
 *.sqlite3
 env/
-/media/**
+# /media/**
+# !/media
 /static/**
-!/media
 !/static
