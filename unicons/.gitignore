@@ -1,0 +1,11 @@
+*/migrations/**
+!*/migrations
+!*/migrations/__init__.py
+__pycache__
+*.pyc
+*.sqlite3
+env/
+/media/**
+/static/**
+!/media
+!/static
